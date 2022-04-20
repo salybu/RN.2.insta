@@ -3,6 +3,7 @@ import AppLoading from "expo-app-loading";
 import { useState } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import * as Font from "expo-font";
+import { Asset } from "expo-asset";
 import { StyleSheet, Text, View } from "react-native";
 
 export default function App() {
@@ -11,7 +12,12 @@ export default function App() {
   const preload = () => {
     const fontsToLoad = [Ionicons.font];
     const fontPromises = fontsToLoad.map((font) => Font.loadAsync(font));
-    return Promise.all(fontPromises);
+    const imagesToLoad = [
+      require("./assets/logo.png"),
+      "https://raw.githubusercontent.com/nomadcoders/instaclone-native/93a5b77e98eefdf5084bfae44653ba67e4ca312c/assets/logo.png",
+    ];
+    const imagePromises = imagesToLoad.map((image) => Asset.loadAsync(image));
+    return Promise.all([...fontPromises, ...imagePromises]);
   };
   if (loading) {
     return (
