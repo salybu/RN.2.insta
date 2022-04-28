@@ -1,5 +1,4 @@
 import react, { useRef } from "react";
-import { KeyboardAvoidingView, Platform } from "react-native";
 import AuthButton from "../components/auth/AuthButton";
 import AuthLayout from "../components/auth/AuthLayout";
 import { TextInput } from "../components/auth/AuthShared";
@@ -20,8 +19,6 @@ export default function CreateAccount() {
 
   return (
     <AuthLayout>
-      <KeyboardAvoidingView style={{width: "100%"}}
-          behavior="padding" keyboardVerticalOffset={Platform.OS === 'ios' ? 50: 0}>
         <TextInput
           autoFocus
           placeholder="First Name"
@@ -61,7 +58,6 @@ export default function CreateAccount() {
           lastOne={true}
         />
         <AuthButton text="Create Account" disabled={true} onPress={() => null} />
-      </KeyboardAvoidingView>
     </AuthLayout>
   );
 }

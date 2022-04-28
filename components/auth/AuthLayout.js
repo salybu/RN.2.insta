@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableWithoutFeedback, Keyboard } from "react-native";
+import { TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Platform } from "react-native";
 import styled from "styled-components/native";
 
 const Container = styled.View`
@@ -14,6 +14,7 @@ const Logo = styled.Image`
   max-width: 50%;
   width: 100%;
   height: 100px;
+  margin: 0 auto;
   margin-bottom: 20px;
 `;
 
@@ -22,10 +23,15 @@ export default function AuthLayout({ children }) {
     Keyboard.dismiss();
   };
   return (
-    <TouchableWithoutFeedback style={{flex: 1}} onPress={dismissKeyboard}>
+    <TouchableWithoutFeedback style={{flex: 1}} onPress={dismissKeyboard} disabled={Platform.OS === "web"}>
       <Container>
-        <Logo resizeMode="contain" source={require("../../assets/logo.png")} />
-        {children}
+        <KeyboardAvoidingView
+            style={{ width: "100%" }}
+            behavior="position"
+            keyboardVerticalOffset={Platform.OS === 'ios' ? 50: 0}>
+            <Logo resizeMode="contain" source={require("../../assets/logo.png")} />
+            {children}
+        </KeyboardAvoidingView>
       </Container>
     </TouchableWithoutFeedback>
   );
